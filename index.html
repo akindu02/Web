@@ -3,27 +3,30 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>FAQ</title>
+  <title>Aquarium Shop FAQ</title>
   <style>
     :root {
-      --faq-max: 800px;
-      --faq-accent: #2563eb;
-      --faq-text: #0f172a;
-      --faq-muted: #334155;
+      --faq-max: 900px;
+      --faq-accent: #06b6d4;    /* Aquatic cyan */
+      --faq-text: #0f172a;      /* Slate-900 */
+      --faq-muted: #0e7490;     /* Cyan-700 */
       --faq-bg: #ffffff;
-      --faq-panel-bg: #f8fafc;
+      --faq-panel-bg: #ecfeff;  /* Light aqua */
       --border: #e5e7eb;
       --radius: 12px;
     }
+
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color: var(--faq-text);
-      background: #f6f7fb;
+      background: linear-gradient(180deg, #f0f9ff 0%, #ffffff 40%);
     }
+
     .faq { max-width: var(--faq-max); margin: 3rem auto; padding: 0 1rem; }
-    .faq h2 { margin: 0 0 1rem; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+    .faq h2 { margin: 0 0 .25rem; font-size: clamp(1.6rem, 1.2rem + 1vw, 2.1rem); }
+    .subtitle { margin: 0 0 1rem; color: var(--faq-muted); }
 
     .faq-item + .faq-item { margin-top: .75rem; }
 
@@ -35,13 +38,14 @@
       border-radius: var(--radius);
       color: var(--faq-text);
       text-align: left;
-      font-size: 1rem; font-weight: 600;
+      font-size: 1rem; font-weight: 700;
       cursor: pointer;
-      transition: border-color .15s, box-shadow .15s, background .15s;
+      transition: border-color .15s, box-shadow .15s, background .15s, transform .05s;
     }
     .faq-question:hover { border-color: #cbd5e1; background: #fff; }
-    .faq-question:focus-visible { outline: 3px solid rgba(37, 99, 235, .35); outline-offset: 2px; }
-    .faq-question .q { color: var(--faq-muted); font-weight: 700; }
+    .faq-question:active { transform: translateY(1px); }
+    .faq-question:focus-visible { outline: 3px solid rgba(6, 182, 212, .35); outline-offset: 2px; }
+    .faq-question .q { color: var(--faq-text); font-weight: 700; }
 
     .chevron {
       margin-left: auto;
@@ -60,7 +64,10 @@
       background: var(--faq-panel-bg);
       border-radius: 0 var(--radius) var(--radius) 0;
     }
-    .faq-panel p { margin: 0; line-height: 1.55; }
+    .faq-panel p { margin: 0; line-height: 1.6; }
+    .faq-panel p + p { margin-top: .5rem; }
+    .faq-panel ul { margin: .5rem 0 0; padding-left: 1.25rem; }
+    .faq-panel li { margin: .25rem 0; }
 
     /* Utilities */
     [hidden] { display: none !important; }
@@ -72,39 +79,134 @@
   </style>
 </head>
 <body>
-  <section class="faq" aria-label="Frequently Asked Questions">
-    <h2>Frequently Asked Questions</h2>
+  <section class="faq" aria-label="Aquarium Shop Frequently Asked Questions">
+    <h2>🐠 Aquarium Shop FAQ</h2>
+    <p class="subtitle">Shipping, acclimation, care, and store policies</p>
 
     <div class="faq-item">
       <h3 class="visually-hidden">Question 1</h3>
       <button class="faq-question" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1">
-        <span class="q">What is this component?</span>
+        <span class="q">Do you ship live fish and invertebrates?</span>
         <span class="chevron" aria-hidden="true"></span>
       </button>
       <div id="faq-a-1" class="faq-panel" role="region" aria-labelledby="faq-q-1" hidden>
-        <p>It’s an accessible FAQ accordion built with HTML, CSS, and a few lines of vanilla JavaScript.</p>
+        <p>Yes. We ship Monday–Wednesday to avoid weekend delays. Livestock travels in insulated boxes with oxygenated bags and heat/cool packs as needed. We offer Overnight and 2‑Day options depending on weather and species sensitivity.</p>
+        <p>Local pickup is available—choose “Store Pickup” at checkout and we’ll email when your order is ready.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <h3 class="visually-hidden">Question 2</h3>
       <button class="faq-question" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">
-        <span class="q">Can I open more than one question at a time?</span>
+        <span class="q">What is your Live Arrival (DOA) guarantee?</span>
         <span class="chevron" aria-hidden="true"></span>
       </button>
       <div id="faq-a-2" class="faq-panel" role="region" aria-labelledby="faq-q-2" hidden>
-        <p>Yes. Toggle the ACCORDION_MODE flag in the script to allow multiple panels to be open simultaneously.</p>
+        <p>We guarantee live arrival. If there’s a problem, contact us within 2 hours of delivery with clear photos of the animal in the unopened bag. We’ll provide a refund or store credit for the livestock cost. Shipping is non‑refundable; replacement shipping fees apply.</p>
+        <p>Following proper acclimation is required for coverage.</p>
       </div>
     </div>
 
     <div class="faq-item">
       <h3 class="visually-hidden">Question 3</h3>
       <button class="faq-question" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">
-        <span class="q">Is it accessible?</span>
+        <span class="q">How do I acclimate new fish safely?</span>
         <span class="chevron" aria-hidden="true"></span>
       </button>
       <div id="faq-a-3" class="faq-panel" role="region" aria-labelledby="faq-q-3" hidden>
-        <p>Buttons, aria-expanded, aria-controls, and the hidden attribute help screen readers and keyboards.</p>
+        <p>Here’s a quick, safe method:</p>
+        <ul>
+          <li>Dim or turn off tank lights for 30–60 minutes.</li>
+          <li>Float the sealed bag in the tank for 15–20 minutes to equalize temperature.</li>
+          <li>Open the bag; add small amounts of tank water every 5 minutes for 20–30 minutes, or use a drip line (2–4 drops/sec for 45–60 minutes).</li>
+          <li>Net the fish into the tank—do not pour bag water into your aquarium.</li>
+          <li>Monitor closely for the first day; feed lightly.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 4</h3>
+      <button class="faq-question" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4">
+        <span class="q">What water parameters do you keep in-store?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-4" class="faq-panel" role="region" aria-labelledby="faq-q-4" hidden>
+        <p>Typical targets (species may vary):</p>
+        <ul>
+          <li>Freshwater: pH 6.8–7.4, temp 24–26 °C (75–79 °F), GH 6–10 dGH, KH 3–6 dKH.</li>
+          <li>Planted: CO₂ 20–30 ppm, nitrates 5–20 ppm, gentle flow and strong light.</li>
+          <li>Saltwater: 1.024–1.026 SG (≈35 ppt), temp 24–26 °C (75–79 °F), alkalinity 8–10 dKH.</li>
+        </ul>
+        <p>We offer free in‑store water testing and can help you match parameters at home.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 5</h3>
+      <button class="faq-question" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5">
+        <span class="q">Do you quarantine livestock before sale?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-5" class="faq-panel" role="region" aria-labelledby="faq-q-5" hidden>
+        <p>We observe livestock prior to sale and may quarantine sensitive species. Because every home system is different, we still recommend customers quarantine new arrivals for 2–4 weeks to protect display tanks.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 6</h3>
+      <button class="faq-question" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6">
+        <span class="q">Can I special‑order fish, corals, or plants?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-6" class="faq-panel" role="region" aria-labelledby="faq-q-6" hidden>
+        <p>Absolutely. We can source many species and hard‑to‑find equipment. A 25–50% deposit may be required. We can hold items for 48 hours once they arrive; live animals require a deposit to hold.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 7</h3>
+      <button class="faq-question" id="faq-q-7" aria-expanded="false" aria-controls="faq-a-7">
+        <span class="q">Do you offer tank setup or maintenance services?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-7" class="faq-panel" role="region" aria-labelledby="faq-q-7" hidden>
+        <p>Yes—installation, aquascaping, and recurring maintenance are available in Your City, ST. Service rates start at $XX/hour. Email support@aquashop.com or call (555) 123‑4567 to schedule.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 8</h3>
+      <button class="faq-question" id="faq-q-8" aria-expanded="false" aria-controls="faq-a-8">
+        <span class="q">What’s your return policy for dry goods and plants?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-8" class="faq-panel" role="region" aria-labelledby="faq-q-8" hidden>
+        <p>Dry goods: 30‑day returns on unused items in original packaging with receipt. Opened foods/chemicals and installed equipment are not returnable.</p>
+        <p>Plants: 7‑day health guarantee with photo. Livestock can’t be returned once bagged or after leaving the store.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 9</h3>
+      <button class="faq-question" id="faq-q-9" aria-expanded="false" aria-controls="faq-a-9">
+        <span class="q">Can you help with stocking and compatibility?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-9" class="faq-panel" role="region" aria-labelledby="faq-q-9" hidden>
+        <p>We’re happy to help plan community tanks, reef mixes, or planted setups. Bring your tank size, current livestock, and water parameters for tailored recommendations.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 10</h3>
+      <button class="faq-question" id="faq-q-10" aria-expanded="false" aria-controls="faq-a-10">
+        <span class="q">Where are you located and what are your hours?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-10" class="faq-panel" role="region" aria-labelledby="faq-q-10" hidden>
+        <p>123 Reef Lane, Your City, ST 00000. Mon–Fri 10–6, Sat 10–5, Sun Closed.</p>
+        <p>Free local pickup is available—order online and choose “Store Pickup.”</p>
       </div>
     </div>
   </section>
