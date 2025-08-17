@@ -1,13 +1,151 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-  <title>Short HTML Example</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQ</title>
+  <style>
+    :root {
+      --faq-max: 800px;
+      --faq-accent: #2563eb;
+      --faq-text: #0f172a;
+      --faq-muted: #334155;
+      --faq-bg: #ffffff;
+      --faq-panel-bg: #f8fafc;
+      --border: #e5e7eb;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--faq-text);
+      background: #f6f7fb;
+    }
+    .faq { max-width: var(--faq-max); margin: 3rem auto; padding: 0 1rem; }
+    .faq h2 { margin: 0 0 1rem; font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem); }
+
+    .faq-item + .faq-item { margin-top: .75rem; }
+
+    .faq-question {
+      display: flex; align-items: center; gap: .75rem;
+      width: 100%; padding: 1rem 1.125rem;
+      background: var(--faq-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--faq-text);
+      text-align: left;
+      font-size: 1rem; font-weight: 600;
+      cursor: pointer;
+      transition: border-color .15s, box-shadow .15s, background .15s;
+    }
+    .faq-question:hover { border-color: #cbd5e1; background: #fff; }
+    .faq-question:focus-visible { outline: 3px solid rgba(37, 99, 235, .35); outline-offset: 2px; }
+    .faq-question .q { color: var(--faq-muted); font-weight: 700; }
+
+    .chevron {
+      margin-left: auto;
+      color: var(--faq-accent);
+      font-weight: 700;
+      font-size: 1.125rem; line-height: 1;
+      width: 1.25rem; text-align: center;
+    }
+    .faq-question[aria-expanded="true"] .chevron::before { content: "−"; }
+    .faq-question[aria-expanded="false"] .chevron::before { content: "+"; }
+
+    .faq-panel {
+      margin-top: .25rem;
+      padding: 1rem 1.125rem;
+      border-left: 3px solid var(--faq-accent);
+      background: var(--faq-panel-bg);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+    .faq-panel p { margin: 0; line-height: 1.55; }
+
+    /* Utilities */
+    [hidden] { display: none !important; }
+    .visually-hidden {
+      position: absolute !important; height: 1px; width: 1px;
+      overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+      white-space: nowrap; clip-path: inset(50%);
+    }
+  </style>
 </head>
 <body>
-  <h1 id="main-title">Hello, World!</h1>
-  <p id="main-paragraph">This is a short HTML code.</p>
-  <button onclick="changeContent()">Change Text</button>
-  <script src="script.js"></script>
+  <section class="faq" aria-label="Frequently Asked Questions">
+    <h2>Frequently Asked Questions</h2>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 1</h3>
+      <button class="faq-question" id="faq-q-1" aria-expanded="false" aria-controls="faq-a-1">
+        <span class="q">What is this component?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-1" class="faq-panel" role="region" aria-labelledby="faq-q-1" hidden>
+        <p>It’s an accessible FAQ accordion built with HTML, CSS, and a few lines of vanilla JavaScript.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 2</h3>
+      <button class="faq-question" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">
+        <span class="q">Can I open more than one question at a time?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-2" class="faq-panel" role="region" aria-labelledby="faq-q-2" hidden>
+        <p>Yes. Toggle the ACCORDION_MODE flag in the script to allow multiple panels to be open simultaneously.</p>
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <h3 class="visually-hidden">Question 3</h3>
+      <button class="faq-question" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">
+        <span class="q">Is it accessible?</span>
+        <span class="chevron" aria-hidden="true"></span>
+      </button>
+      <div id="faq-a-3" class="faq-panel" role="region" aria-labelledby="faq-q-3" hidden>
+        <p>Buttons, aria-expanded, aria-controls, and the hidden attribute help screen readers and keyboards.</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Config: true = only one panel open at a time; false = multiple panels can be open
+    const ACCORDION_MODE = true;
+
+    const buttons = document.querySelectorAll('.faq-question');
+
+    function closePanel(btn) {
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      btn.setAttribute('aria-expanded', 'false');
+      if (panel) panel.hidden = true;
+    }
+
+    function openPanel(btn) {
+      const panel = document.getElementById(btn.getAttribute('aria-controls'));
+      btn.setAttribute('aria-expanded', 'true');
+      if (panel) panel.hidden = false;
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+
+        if (ACCORDION_MODE && !isOpen) {
+          document.querySelectorAll('.faq-question[aria-expanded="true"]').forEach(openBtn => {
+            if (openBtn !== btn) closePanel(openBtn);
+          });
+        }
+
+        if (isOpen) {
+          closePanel(btn);
+        } else {
+          openPanel(btn);
+        }
+      });
+    });
+
+    // Tip: To have one open by default, set aria-expanded="true" on that button and remove "hidden" from its panel.
+  </script>
 </body>
 </html>
